@@ -280,7 +280,8 @@ func (d *Driver) StartLogging(file string, info logger.Info) error {
 		for doc := range c.pipeline.outputCh {
 			// l.Printf("INFO pipe3: %#v\n", string(doc.Line))
 			// l.Printf("sending doc: %#v\n", doc.GrokLine)
-			c.esClient.Add(config.index, config.tzpe, doc)
+			t := time.Unix(0, doc.TimeNano)
+			c.esClient.Add(string(t.AppendFormat([]byte(config.index), ".2006-01-02")), config.tzpe, doc)
 			select {
 			case <-c.pipeline.ctx.Done():
 				l.Printf("ERROR pipe3: %#v\n", c.pipeline.ctx.Err())
