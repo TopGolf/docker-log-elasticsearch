@@ -80,7 +80,7 @@ func (l LogMessage) MarshalJSON() ([]byte, error) {
 			//  api/types/plugin/logdriver/LogEntry
 			Line     string    `json:"message,omitempty"` // []byte to string
 			Source   string    `json:"source"`
-			TimeNano time.Time `json:"timestamp"` // int64 to Time
+			TimeNano time.Time `json:"@timestamp"` // int64 to Time
 			Partial  bool      `json:"partial"`
 
 			GrokLine map[string]string `json:"grok,omitempty"`
